@@ -1,9 +1,6 @@
 package org.dsu.dc;
 
-import java.util.List;
-
 import org.dsu.dc.domain.BoardVO;
-import org.dsu.dc.domain.Criteria;
 import org.dsu.dc.service.BoardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +18,21 @@ public class MyBoardApplicationTests {
 	BoardService service;
 	
 	@Test
-	public void contextLoads() {
-		List<BoardVO> list 
-			= service.getList(new Criteria(2, 10));
-		list.forEach(board->log.info("Paging : {}", board));
+	public void testInsert() {
+		BoardVO board = new BoardVO();
+		board.setSno("학번");
+		board.setSname("이름");
+		board.setPCno("PCno");
+		
+		service.register(board);
+		log.info("[Board Insert] {}", board);
 	}
+	
 
+		
+	@Test
+	public void testRead() {
+		BoardVO board=new BoardVO();
+		log.info("[Board Read] {}", board);
+	}
 }

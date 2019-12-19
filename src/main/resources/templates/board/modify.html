@@ -10,70 +10,57 @@
 			<div class="content-wrapper">
 				<div class="container">
 					<section class="content-header">
-						<h1>General Form Elements <small>Top Navigation</small></h1>
+						<h1>실습실 사용일지 <small>Top Navigation</small></h1>
 						<ol class="breadcrumb">
 							<li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 							<li><a href="#">Board</a></li>
-							<li class="active">Board Modify Page</li>
+							<li class="active">사용자 정보</li>
 						</ol>
 					</section>
 					
 					<section class="content">
 						<div class="box">
 							<div class="box-header with-border">
-								<h3 class="box-title">Board Modify Page</h3>
+								<h3 class="box-title">사용자 정보</h3>
 							</div>
 							<div class="box-body" th:object="${board}">
-								<form role="form" action="/board/modify" method="post">
-									<div class="form-group">
-										<label>Board #</label>
-										<input name="bno" class="form-control"
-										       th:value="*{bno}" readonly="readonly">
-									</div>
+							<form role="form" action="/board/modify" method="post">							
+								<div class="form-group">
+									<label>Board #</label>
+									<input name="bno" class="form-control"
+									       th:value="*{bno}" readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>학번</label>
+									<input name="Sno" class="form-control"
+									       th:value="*{Sno}" readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>이름</label>
+									<input name="Sname" class="form-control"
+											  th:value="*{Sname}" readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>PC 번호</label>
+									<input name="PCno"  class="form-control"
+									       th:value="*{PCno}" readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>시작 시간</label>
+									<label th:text="*{Logindate}"> </label>
+								</div>
+								
+								
+								<div class="box-footer">
+								
 									
-									<div class="form-group">
-										<label>Title</label>
-										<input name="title" class="form-control"
-										       th:value="*{title}">
-									</div>
-									
-									<div class="form-group">
-										<label>Content</label>
-										<textarea name="content" rows="3" 
-												  class="form-control"
-												  th:text="*{content}">
-										</textarea>
-									</div>
-									
-									<div class="form-group">
-										<label>Writer</label>
-										<input name="writer" 
-										       class="form-control"
-										       th:value="*{writer}" readonly="readonly">
-									</div>
-									
-									<div class="box-footer">
-										<button type="submit" class="btn btn-success"
-										        data-oper="modify">
-											MODIFY
-										</button>
-										<button type="submit" class="btn btn-danger"
-										        data-oper="remove">
-											REMOVE
-										</button>
-										<button type="submit" class="btn btn-info"
-										        data-oper="list">
-											LIST
-										</button>
-									</div>
-									<input type="hidden" 
-									       name="pageNum" th:value="${cri.pageNum}">
-									<input type="hidden" 
-									       name="amount" th:value="${cri.amount}">
-									<input type="hidden" name="type" 
-									       th:value="${cri.type}">
-									<input type="hidden" name="keyword" 
-									       th:value="${cri.keyword}">
+								</div>
+								<button type="submit" class="btn btn-warning">사용 종료 (종료 시간 갱신)
+								</button>
 								</form>
 							</div>
 						</div>
@@ -84,7 +71,8 @@
 			<footer th:replace="fragments/footer :: footerFragment"></footer>
 		</div>
 		
-		<footer th:replace="fragments/footer :: scriptFragment"></footer>
+		<footer th:replace="fragments/footer :: scriptFragment"></footer>	
+		
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var formObj = $("form");
@@ -97,13 +85,8 @@
 					if(operation == 'remove'){
 						formObj.attr("action", "/board/remove");
 					}else if(operation == 'list'){
-						formObj.attr("action", "/board/list").attr("method", "get");
-						var pageNumTag = $("input[name='pageNum']").clone();
-						var amountTag = $("input[name='amount']").clone();
-						
-						formObj.empty();
-						formObj.append(pageNumTag);
-						formObj.append(amount);
+						self.location="/board/list";
+						return;
 					}
 					formObj.submit();
 				});
@@ -111,6 +94,3 @@
 		</script>
 	</body>
 </html>
-
-
-
