@@ -10,20 +10,21 @@
 			<div class="content-wrapper">
 				<div class="container">
 					<section class="content-header">
-						<h1>General Form Elements <small>Top Navigation</small></h1>
+						<h1>실습실 사용일지 <small>Top Navigation</small></h1>
 						<ol class="breadcrumb">
 							<li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 							<li><a href="#">Board</a></li>
-							<li class="active">Board Read Page</li>
+							<li class="active">사용자 정보</li>
 						</ol>
 					</section>
 					
 					<section class="content">
 						<div class="box">
 							<div class="box-header with-border">
-								<h3 class="box-title">Board Read Page</h3>
+								<h3 class="box-title">사용자 정보</h3>
 							</div>
 							<div class="box-body" th:object="${board}">
+						
 								<div class="form-group">
 									<label>Board #</label>
 									<input name="bno" class="form-control"
@@ -31,44 +32,38 @@
 								</div>
 								
 								<div class="form-group">
-									<label>Title</label>
-									<input name="title" class="form-control"
-									       th:value="*{title}" readonly="readonly">
+									<label>학번</label>
+									<input name="Sno" class="form-control"
+									       th:value="*{Sno}" readonly="readonly">
 								</div>
 								
 								<div class="form-group">
-									<label>Content</label>
-									<textarea name="content" rows="3" 
-											  class="form-control"
-											  th:text="*{content}" readonly="readonly">
-									</textarea>
+									<label>이름</label>
+									<input name="Sname" class="form-control"
+											  th:value="*{Sname}" readonly="readonly">
 								</div>
 								
 								<div class="form-group">
-									<label>Writer</label>
-									<input name="writer" 
-									       class="form-control"
-									       th:value="*{writer}" readonly="readonly">
+									<label>PC 번호</label>
+									<input name="PCno"  class="form-control"
+									       th:value="*{PCno}" readonly="readonly">
 								</div>
+								
+								<div class="form-group">
+									<label>시작 시간</label>
+									<input name="Logindate" class="form-control"
+											th:value="*{Logindate}" readonly="readonly">
+								</div>
+								
 								
 								<div class="box-footer">
-									<button data-oper="modify" type="submit" class="btn btn-warning">
-										MODIFY
-									</button>
-									<button data-oper="list" type="submit" class="btn btn-primary">
-										LIST
-									</button>
-								</div>
 								
-								<form role="form" id="operForm" method="get">
-									<input type="hidden" name="bno" th:value="${board.bno}">
-									<input type="hidden" name="pageNum" th:value="${cri.pageNum}">
-									<input type="hidden" name="amount" th:value="${cri.amount}">
-									<input type="hidden" name="type" 
-									       th:value="${cri.type}">
-									<input type="hidden" name="keyword" 
-									       th:value="${cri.keyword}">
-								</form>
+									
+								</div>
+
+							<button type="submit" class="btn btn-warning"
+											th:onclick="|location.href='@{/board/modify(bno=*{bno})}'|">사용 종료											
+							</button>
 							</div>
 						</div>
 					</section>
@@ -78,20 +73,7 @@
 			<footer th:replace="fragments/footer :: footerFragment"></footer>
 		</div>
 		
-		<footer th:replace="fragments/footer :: scriptFragment"></footer>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				var operForm = $("#operForm");
-				
-				$("button[data-oper='modify']").on("click", function(e){
-					operForm.attr("action", "/board/modify").submit();
-				});
-				
-				$("button[data-oper='list']").on("click", function(e){
-					operForm.find("#bno").remove();
-					operForm.attr("action", "/board/list").submit();
-				});
-			});
-		</script>
+		<footer th:replace="fragments/footer :: scriptFragment"></footer>	
+		
 	</body>
 </html>
